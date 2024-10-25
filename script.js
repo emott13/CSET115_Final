@@ -28,10 +28,11 @@ else{
 //START THE GAME
 //--------------
 
+//--- Loads options ----
 function startGame() {
   let askP1 = playerOption[currentIndex];
   console.log(askP1.question);
-  string = askP1.question
+  string = askP1.question;
   print(string);
 
   let optionsContainer = document.getElementById("options");
@@ -66,10 +67,10 @@ function print(string){
     setTimeout(main, timePerChar);
     }
   };
-  main();
+  main(string);
 };
 
-//---- Player X or O choice ----
+//---- Player submits choice ----
 
 function submit(){
   let choice = document.querySelector('input[name="option"]:checked');
@@ -90,12 +91,13 @@ function submit(){
   }
   currentPlayer.push(player1);
   currentPlayer.push(player2);
-  document.getElementById('playerChoice').innerHTML = '';                           //removes choice so player cannot change during game
+  document.getElementById('playerChoice').innerHTML = '';                             //removes choice so player cannot change during game
   document.getElementsByClassName('turn')[0].classList = 'turn true'
   buildBoard();
 };
 
-//Building the board
+//---- Building the board ----
+
 function buildBoard(){
   let gameContainer = document.getElementById('theGame')
   let boardContainer = document.createElement('div');
@@ -104,17 +106,13 @@ function buildBoard(){
   gameContainer.appendChild(boardContainer);
 
 
-  for(let i = 0; i < 9; i++){                                                       //creates cells for the board
+  for(let i = 0; i < 9; i++){                                                         //creates cells for the board
       let square = document.createElement('div');
       square.className = 'cell';
       boardContainer.appendChild(square);
-
-      // let cell = document.getElementsByClassName('cell')[i];
      
       square.addEventListener('click', (event) => {                                   //adds eventListener when cell is created
-          let currentCell = event.target
-          // console.log(cell)
-          
+          let currentCell = event.target          
           if(currentCell.innerHTML !== ''){
               return;
           }
@@ -133,71 +131,67 @@ function buildBoard(){
           let item = document.createElement('p');
           item.classList = ('celldata');
           currentCell.appendChild(item);
-          item.innerText = turn;                                                    //sets innerText to X or O when 
+          item.innerText = turn;                                                      //sets innerText to X or O when 
 
           board[i] = turn;
           resultCalc();
 
-      });                                                                           //clicked depending on player turn
+      });                                                                             //clicked depending on player turn
   };      
 };
 
-// Saved variables that are needed
+
+//----------------
+//CALCULATE WINNER
+//----------------
 
 
+//---- Variables ----
 
 let score1 = 0
 let score2 = 0 
 let tie = 0
-const winningConditions = [ [0, 1, 2],[3, 4, 5],[6, 7, 8],[0, 3, 6],[1, 4, 7],[2, 5, 8],[0, 4, 8],[2, 4, 6] ]
-
+const winningConditions =                                                             //adjusted for readability
+  [ 
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6] 
+  ]
 let board = ['', '', '', '', '', '', '', '', ''];
-// let currentPlayer = 'X';
-// let currentPlayer = 'X';
 let isGameActive = true;
-
-const PLAYERX_WON = 'PLAYERX_WON';
-const PLAYERO_WON = 'PLAYERO_WON';
+const P1 = 'P1';
+const P2 = 'P2';
 const TIE = 'TIE';
 const endmessage = document.getElementById("endMessage");
 
-// allows system to check if the cell has been clicked or not
-const isValidAction = (data) => {
-    if (data.innerText === 'X' || data.innerText === 'O'){
-        return false;
-    }   
-    else return true;
-}
-
 const printmessage = (type) => {
   const endmessage = document.getElementById("endMessage");
-  const tiescore = document.getElementById("TieScore")
+  const tiescore = document.getElementById("tieScore")
   const p1score = document.getElementById("P1Score")
-  let score1 = 0
-  let score2 = 0
-  let tie = 0
+  const p2score = document.getElementById('P2Score')
   switch(type){
-    
-      case 'PLAYERO_WON':
-          endmessage.innerText = 'Player O Won!'
-          score2++;
-          document.getElementById("P2Score").innerHTML = score2
-          break;
+    case 'P1':
+      endmessage.innerText = 'Player 1 Won!'
+      score1++;
+      p1score.innerHTML = score1
+      break;
 
+    case 'P2':
+      endmessage.innerText = 'Player 2 Won!'
+      score2++;
+      p2score.innerText = score2
+      break;
 
-      case 'PLAYERX_WON':
-          endmessage.innerText = 'Player X Won!'
-          score1++;
-          document.getElementById('P1Score').innerText = score1
-          break;
-
-      case 'TIE':
-          endmessage.innerText = 'It was a Tie!'
-          tie++;
-          document.getElementById('tieScore').innerText = tie
-          break;
+    case 'TIE':
+      endmessage.innerText = 'It was a Tie!'
+      tie++;
+      tiescore.innerText = tie;
   }
-  endmessage.classList.remove('hide')
   isGameActive = false
 }
 
@@ -221,7 +215,7 @@ function resultCalc() {
   }
 
   if (roundWon) {
-      printmessage(turn === "X" ? PLAYERX_WON : PLAYERO_WON);
+      printmessage(turn == currentPlayer[0] ? P1 : P2);
       isGameActive = false;
       return;
   }
@@ -230,5 +224,4 @@ function resultCalc() {
       printmessage(TIE);
       isGameActive = false;
   }
-}
-
+};
