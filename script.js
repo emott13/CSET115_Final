@@ -189,40 +189,42 @@ const printmessage = (type) => {
 
 
 // function that lets you grab values froM the different cells, and prints message accordingly: See 8:31 in the video to understand this
-    function resultCalc() {
-        let roundWon = false;
-        for (let i = 0; i <= 7; i++) {
-          const winCondition = winningConditions[i];
-          const a = board[winCondition[0]];
-          const b = board[winCondition[1]];
-          const c = board[winCondition[2]];
-          if (a === "" || b === "" || c === "") {
-            continue;
-          }
-          if (a === b && b === c) {
-            roundWon = true;
-            break;
-          }
-        }
-      
-        if (roundWon) {
-          printmessage(currentPlayer === "X" ? PLAYERX_WON : PLAYERO_WON);
-          isGameActive = false;
-          return;
-        }
-      
-        if (!board.includes("")) printmessage(TIE);
-      }
-      
-      const userAction = (data, index) => {
-        if (isValidAction(data) && isGameActive) {
-            data.innerText = currentPlayer;
-            data.classList.add(`player${currentPlayer}`)
-            updateBoard(index)
-            resultCalc()
-            changePlayer()
-        }
-      }
+function handleResultValidation() {
+  let roundWon = false;
+  for (let i = 0; i < winConditions.length; i++) {
+    const winCondition = winConditions[i];
+    let a = board[winCondition[0]];
+    let b = board[winCondition[1]];
+    let c = board[winCondition[2]];
+    if (a === "" || b === "" || c === "") {
+      continue;
+    }
+    if (a === b && b === c) {
+      roundWon = true;
+      break;
+    }
+  }
+
+  if (roundWon) {
+    document.getElementById('gameStatus').innerText = `Player ${currentPlayer} has won!`;
+    isGameActive = false;
+    return;
+  }
+
+  if (!board.includes("")) {
+    document.getElementById('gameStatus').innerText = "It's a tie!";
+    isGameActive = false;
+  }
+}
+
+function makeMove(index) {
+  if (board[index] === "" && isGameActive) {
+    board[index] = currentPlayer;
+    document.getElementById(`cell${index}`).innerText = currentPlayer;
+    handleResultValidation();
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+  }
+}
     
 
     // data.forEach( (data, index) => {
