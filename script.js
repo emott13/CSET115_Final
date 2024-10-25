@@ -91,6 +91,7 @@ function submit(){
   currentPlayer.push(player1);
   currentPlayer.push(player2);
   document.getElementById('playerChoice').innerHTML = '';                           //removes choice so player cannot change during game
+  document.getElementsByClassName('turn')[0].classList = 'turn true'
   buildBoard();
 };
 
@@ -107,6 +108,7 @@ function buildBoard(){
       let square = document.createElement('div');
       square.className = 'cell';
       boardContainer.appendChild(square);
+
       // let cell = document.getElementsByClassName('cell')[i];
      
       square.addEventListener('click', (event) => {                                   //adds eventListener when cell is created
@@ -117,6 +119,16 @@ function buildBoard(){
               return;
           }
           turn = (turn === currentPlayer[0]) ? currentPlayer[1] : currentPlayer[0];
+
+          let player = document.getElementsByClassName('turn');
+          if(turn === currentPlayer[0]){
+            player[1].classList = 'turn true';
+            player[0].classList = 'turn';
+          }
+          else{
+            player[1].classList = 'turn';
+            player[0].classList = 'turn true';
+          }
 
           let item = document.createElement('p');
           item.classList = ('celldata');
@@ -172,6 +184,7 @@ const printmessage = (type) => {
           document.getElementById("P2Score").innerHTML = score2
           break;
 
+
       case 'PLAYERX_WON':
           endmessage.innerText = 'Player X Won!'
           score1++;
@@ -188,7 +201,6 @@ const printmessage = (type) => {
   isGameActive = false
 }
 
-
 // function that lets you grab values froM the different cells, and prints message accordingly: See 8:31 in the video to understand this
 function resultCalc() {
   let roundWon = false;
@@ -204,6 +216,7 @@ function resultCalc() {
       if (a === b && b === c) {
           roundWon = true;
           break;
+
       }
   }
 
