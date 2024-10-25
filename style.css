@@ -23,7 +23,7 @@ body{
 
 #playerChoice{
     width: 440px;
-    height: 300px;
+    min-height: 100px;
     margin-top: 30px;
     display: flex;
     flex-direction: column;
@@ -64,6 +64,28 @@ input[type="radio"]:checked:after{
     color: #dbd9d9;
     font-family: var(--font-family);
     font-size: 20px;
+}
+
+#playerScores{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 45vh;
+}
+
+div.score > h3{
+    height: 100px;
+    min-width: 100px;
+    margin: 20px;
+    color: #dbd9d9;
+    font-size: 30px;
+    font-weight: normal;
+}
+
+.turn{
+    text-decoration: underline dotted #1c5844;
+}
+.true{
+    text-decoration: underline dotted #339b78;
 }
 
 #theGame{
@@ -130,6 +152,7 @@ p{
 .reset{
     width: 200px;
     height: 50px;
+    margin-bottom: 30px;
     color: #a5a5a5;
     background-color: #339b78;
     border: #339b78;
