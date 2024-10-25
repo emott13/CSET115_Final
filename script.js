@@ -56,9 +56,7 @@ function startGame() {
 //---- Print player instructions ----
 
 function print(string){
-  console.log(string)
   let timePerChar = 80;
-
   let textContainer = document.getElementById('choice');
   textContainer.textContent = '';
   let i = 0;
@@ -77,9 +75,7 @@ function print(string){
 
 function submit(){
   let choice = document.querySelector('input[name="option"]:checked');
-  console.log(choice)
   let answer = choice.value
-  console.log(answer)
   if(!answer){
       return;
   }
