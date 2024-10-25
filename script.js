@@ -93,11 +93,11 @@ function submit(){
   currentPlayer.push(player1);
   currentPlayer.push(player2);
   document.getElementById('playerChoice').innerHTML = '';                           //removes choice so player cannot change during game
+  document.getElementsByClassName('turn')[0].classList = 'turn true'
   buildBoard();
 };
 
 //Building the board
-
 function buildBoard(){
   let gameContainer = document.getElementById('theGame')
   let boardContainer = document.createElement('div');
@@ -110,26 +110,40 @@ function buildBoard(){
       let square = document.createElement('div');
       square.className = 'cell';
       boardContainer.appendChild(square);
-      let cell = document.getElementsByClassName('cell')[i];
      
-      cell.addEventListener('click', (event) => {                                   //adds eventListener when cell is created
-          let cell = event.target
-          turn = (turn === currentPlayer[0]) ? currentPlayer[1] : currentPlayer[0];
-          if(cell.innerHTML !== ''){
+      square.addEventListener('click', (event) => {                                   //adds eventListener when cell is created
+          let currentCell = event.target
+          
+          if(currentCell.innerHTML !== ''){
               return;
+          }
+          turn = (turn === currentPlayer[0]) ? currentPlayer[1] : currentPlayer[0];
+          let player = document.getElementsByClassName('turn');
+          if(turn === currentPlayer[0]){
+            player[1].classList = 'turn true';
+            player[0].classList = 'turn';
+          }
+          else{
+            player[1].classList = 'turn';
+            player[0].classList = 'turn true';
           }
 
 
           let item = document.createElement('p');
-          cell.appendChild(item);
+          item.classList = ('celldata');
+          currentCell.appendChild(item);
           item.innerText = turn;                                                    //sets innerText to X or O when 
+
+          board[i] = turn;
+          resultCalc();
+
       });                                                                           //clicked depending on player turn
   };      
 };
 
 // Saved variables that are needed
 
-const data = Array.from(document.querySelectorAll('.celldata'))
+
 
 let score1 = 0
 let score2 = 0 
@@ -143,7 +157,7 @@ let isGameActive = true;
 const PLAYERX_WON = 'PLAYERX_WON';
 const PLAYERO_WON = 'PLAYERO_WON';
 const TIE = 'TIE';
-const endmessage = document.getElementById("endtext");
+const endmessage = document.getElementById("endMessage");
 
 // allows system to check if the cell has been clicked or not
 const isValidAction = (data) => {
@@ -155,25 +169,25 @@ const isValidAction = (data) => {
 
 
 // allows system to automatically change user input 
-const changePlayer = () => {
-    playerDisplay.classList.remove(`player${currentPlayer}`)
-    currentPlayer = currentPlayer === 'X' ? 'O': 'X' 
-        //  Look up how ^ this line ^ works becasue you dont understand it yet
-    playerDisplay.innerText = currentPlayer
-    playerDisplay.classList.add(`player${currentPlayer}`)
-}
+// const changePlayer = () => {
+//     playerDisplay.classList.remove(`player${currentPlayer}`)
+//     currentPlayer = currentPlayer === 'X' ? 'O': 'X' 
+//         //  Look up how ^ this line ^ works becasue you dont understand it yet
+//     playerDisplay.innerText = currentPlayer
+//     playerDisplay.classList.add(`player${currentPlayer}`)
+// }
 
 
 // allows system to print final message to user on the result of the game: Review switch functions
 const printmessage = (type) => {
     switch(type){
         case 'PLAYERO_WON':
-            endmessage.innerHTML = 'Player O Won!'
+            endmessage.innerText = 'Player O Won!'
             score2++
         break;
 
         case 'PLAYERX_WON':
-            endmessage.innerHTML = 'Player X won!'
+            endmessage.innerText = 'Player X won!'
             score1++
         break;
 
@@ -186,6 +200,7 @@ const printmessage = (type) => {
 
 // function that lets you grab values froM the different cells, and prints message accordingly: See 8:31 in the video to understand this
     function resultCalc() {
+      // alert('calculating')
         let roundWon = false;
         for (let i = 0; i <= 7; i++) {
           const winCondition = winningConditions[i];
@@ -202,7 +217,7 @@ const printmessage = (type) => {
         }
       
         if (roundWon) {
-          printmessage(currentPlayer === "X" ? PLAYERX_WON : PLAYERO_WON);
+          printmessage(turn === "X" ? PLAYERX_WON : PLAYERO_WON);
           isGameActive = false;
           return;
         }
@@ -211,12 +226,13 @@ const printmessage = (type) => {
       }
       
       const userAction = (data, index) => {
+        console.log(index)
         if (isValidAction(data) && isGameActive) {
             data.innerText = currentPlayer;
-            data.classList.add(`player${currentPlayer}`)
-            updateBoard(index)
+            data.classList =+ (`player${currentPlayer}`)
+            // updateBoard(index)
             resultCalc()
-            changePlayer()
+            // changePlayer()
         }
       }
     
