@@ -96,55 +96,44 @@ function submit(){
 };
 
 //Building the board
-function buildBoard(){
-  let gameContainer = document.getElementById('theGame')
+function buildBoard() {
+  let gameContainer = document.getElementById('theGame');
   let boardContainer = document.createElement('div');
-  boardContainer.classList = 'cellContainer'
+  boardContainer.classList = 'cellContainer';
 
   gameContainer.appendChild(boardContainer);
 
-
-  for(let i = 0; i < 9; i++){                                                       //creates cells for the board
+  for (let i = 0; i < 9; i++) {
       let square = document.createElement('div');
       square.className = 'cell';
       boardContainer.appendChild(square);
 
-      // let cell = document.getElementsByClassName('cell')[i];
-     
-      square.addEventListener('click', (event) => {                                   //adds eventListener when cell is created
-          let currentCell = event.target
-          // console.log(cell)
-          
-          if(currentCell.innerHTML !== ''){
-              return;
-          }
+      square.addEventListener('click', (event) => {
+          let currentCell = event.target;
+
+          if (!isGameActive || currentCell.innerHTML !== '') return;
+
           turn = (turn === currentPlayer[0]) ? currentPlayer[1] : currentPlayer[0];
 
           let player = document.getElementsByClassName('turn');
-          if(turn === currentPlayer[0]){
-            player[1].classList = 'turn true';
-            player[0].classList = 'turn';
-          }
-          else{
-            player[1].classList = 'turn';
-            player[0].classList = 'turn true';
+          if (turn === currentPlayer[0]) {
+              player[1].classList = 'turn true';
+              player[0].classList = 'turn';
+          } else {
+              player[1].classList = 'turn'
+              player[0].classList = 'turn true';
           }
 
           let item = document.createElement('p');
           item.classList = ('celldata');
           currentCell.appendChild(item);
-          item.innerText = turn;                                                    //sets innerText to X or O when 
+          item.innerText = turn;
 
           board[i] = turn;
-          resultCalc();
-
-      });                                                                           //clicked depending on player turn
-  };      
-};
-
-// Saved variables that are needed
-
-
+          resultCalc()
+      })
+  }
+}
 
 let score1 = 0
 let score2 = 0 
@@ -152,8 +141,7 @@ let tie = 0
 const winningConditions = [ [0, 1, 2],[3, 4, 5],[6, 7, 8],[0, 3, 6],[1, 4, 7],[2, 5, 8],[0, 4, 8],[2, 4, 6] ]
 
 let board = ['', '', '', '', '', '', '', '', ''];
-// let currentPlayer = 'X';
-// let currentPlayer = 'X';
+
 let isGameActive = true;
 
 const PLAYERX_WON = 'PLAYERX_WON';
@@ -161,7 +149,6 @@ const PLAYERO_WON = 'PLAYERO_WON';
 const TIE = 'TIE';
 const endmessage = document.getElementById("endMessage");
 
-// allows system to check if the cell has been clicked or not
 const isValidAction = (data) => {
     if (data.innerText === 'X' || data.innerText === 'O'){
         return false;
@@ -171,8 +158,6 @@ const isValidAction = (data) => {
 
 const printmessage = (type) => {
   const endmessage = document.getElementById("endMessage");
-  const tiescore = document.getElementById("TieScore")
-  const p1score = document.getElementById("P1Score")
   let score1 = 0
   let score2 = 0
   let tie = 0
@@ -182,6 +167,7 @@ const printmessage = (type) => {
           endmessage.innerText = 'Player O Won!'
           score2++;
           document.getElementById("P2Score").innerHTML = score2
+          isGameActive = false
           break;
 
 
@@ -189,20 +175,23 @@ const printmessage = (type) => {
           endmessage.innerText = 'Player X Won!'
           score1++;
           document.getElementById('P1Score').innerText = score1
+          isGameActive = false
           break;
 
       case 'TIE':
           endmessage.innerText = 'It was a Tie!'
           tie++;
-          document.getElementById('tieScore').innerText = tie
+          document.getElementById('TieScore').innerText = tie
+          isGameActive = false
           break;
   }
   endmessage.classList.remove('hide')
   isGameActive = false
 }
 
-// function that lets you grab values froM the different cells, and prints message accordingly: See 8:31 in the video to understand this
+
 function resultCalc() {
+  
   let roundWon = false;
   for (let i = 0; i < winningConditions.length; i++) {
       const winCondition = winningConditions[i];
@@ -213,12 +202,11 @@ function resultCalc() {
       if (a === '' || b === '' || c === '') {
           continue;
       }
-      if (a === b && b === c) {
-          roundWon = true;
-          break;
-
-      }
-  }
+      if (a && a === b && b === c) {
+        roundWon = true;
+        break;
+    }
+}
 
   if (roundWon) {
       printmessage(turn === "X" ? PLAYERX_WON : PLAYERO_WON);
@@ -227,8 +215,24 @@ function resultCalc() {
   }
 
   if (!board.includes('')) {
-      printmessage(TIE);
-      isGameActive = false;
+    printmessage(TIE);
+    isGameActive = false;
   }
 }
+
+document.getElementById('newGame').addEventListener('click', resetBoard);
+
+function resetBoard() {
+  const endmessage = document.getElementById("endMessage")
+  endmessage.innerText= ""
+  board = ['', '', '', '', '', '', '', '', ''] 
+  document.querySelectorAll('.cell').forEach(cell => {
+      cell.innerHTML = ''
+      cell.classList.remove('playerX', 'playerO')
+  })
+  isGameActive = true;
+  turn = currentPlayer[0];
+}
+
+
 
