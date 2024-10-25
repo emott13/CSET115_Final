@@ -82,10 +82,10 @@ div.score > h3{
 }
 
 .turn{
-    text-decoration: underline dotted #1c5844;
+    text-decoration: 6px underline dashed #1c5844;
 }
 .true{
-    text-decoration: underline dotted #339b78;
+    text-decoration: 6px underline dashed #339b78;
 }
 
 #theGame{

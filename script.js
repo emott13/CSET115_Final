@@ -93,6 +93,7 @@ function submit(){
   currentPlayer.push(player1);
   currentPlayer.push(player2);
   document.getElementById('playerChoice').innerHTML = '';                           //removes choice so player cannot change during game
+  document.getElementsByClassName('turn')[0].classList = 'turn true'
   buildBoard();
 };
 
@@ -109,16 +110,24 @@ function buildBoard(){
       let square = document.createElement('div');
       square.className = 'cell';
       boardContainer.appendChild(square);
-      // let cell = document.getElementsByClassName('cell')[i];
      
       square.addEventListener('click', (event) => {                                   //adds eventListener when cell is created
           let currentCell = event.target
-          // console.log(cell)
           
           if(currentCell.innerHTML !== ''){
               return;
           }
           turn = (turn === currentPlayer[0]) ? currentPlayer[1] : currentPlayer[0];
+          let player = document.getElementsByClassName('turn');
+          if(turn === currentPlayer[0]){
+            player[1].classList = 'turn true';
+            player[0].classList = 'turn';
+          }
+          else{
+            player[1].classList = 'turn';
+            player[0].classList = 'turn true';
+          }
+
 
           let item = document.createElement('p');
           item.classList = ('celldata');
