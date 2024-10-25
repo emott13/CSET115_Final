@@ -5,24 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Cabin Sketch' rel='stylesheet'>
+    <script src="script.js" async></script>
 </head>
 <body>
-        <div class="cellContainer">
+    <section id="playerChoice">
 
-            <div class="cell"><a href="#" class="cellData" id="1">-</a> </div>
-            <div class="cell"><a href="#" class="cellData" id="2">-</a> </div>
-            <div class="cell"><a href="#" class="cellData" id="3">-</a> </div>
-            <div class="cell"><a href="#" class="cellData" id="4">-</a> </div>
-            <div class="cell"><a href="#" class="cellData" id="5">-</a> </div>
-            <div class="cell"><a href="#" class="cellData" id="6">-</a> </div>
-            <div class="cell"><a href="#" class="cellData" id="7">-</a> </div>
-            <div class="cell"><a href="#" class="cellData" id="8">-</a> </div>
-            <div class="cell"><a href="#" class="cellData" id="9">-</a> </div>
-
+        <div class="choice" id="choice">
         </div>
-<div id="endmessage"></div>
-<button class="reset" onclick="location.reload();">Reset</button>
+        <div id="options">
+        </div>  
 
-    <script src="script.js"></script>
+    </section>
+
+    <section id="playerScores">
+        <div class="score" id="player_1">
+            <h3 class="turn">Player 1</h3>
+        </div>
+        <div class="score" id="player_2">
+            <h3 class="turn">Player 2</h3>
+        </div>
+    </section>
+
+    <section id="theGame">
+
+    </section>
+
+    <div id="endMessage"></div>
+    
+    <section class="buttons">
+        <button class="newGame">Start new game</button>
+        <button class="reset" onclick="location.reload()">Reset game</button>        
+    </section>
+
+<section class="scores">
+     <p class="point">Player 1: <div id="P1Score"></div></p>
+     <p class="point">Player 2: <div id="P2Score"></div> </p>
+     <p class="point">Ties: <div id="TieScore"></div> </p>
+</section>
+
 </body>
 </html>
