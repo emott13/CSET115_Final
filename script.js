@@ -133,7 +133,7 @@ function buildBoard(){
 
 // Saved variables that are needed
 
-const data = Array.from(document.querySelectorAll('.celldata'))
+const data = Array.from(document.querySelectorAll('.cell'))
 
 let score1 = 0
 let score2 = 0 
