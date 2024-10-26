@@ -31,8 +31,7 @@ else{
 //--- Loads options ----
 function startGame() {
   let askP1 = playerOption[currentIndex];
-  console.log(askP1.question);
-  string = askP1.question;
+  string = askP1.question
   print(string);
 
   let optionsContainer = document.getElementById("options");
