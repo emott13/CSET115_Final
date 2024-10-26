@@ -173,3 +173,73 @@ div.score > p{
     text-transform: uppercase;
     font-family: var(--font-family);
 }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    
+    :root {
+        --cell-size: 90px; 
+    }
+
+    body {
+        font-size: 16px; 
+    }
+
+    #playerChoice {
+        width: 80%; 
+        font-size: 24px; 
+        height: auto;
+        margin-top: 20px;
+    }
+
+    #options {
+        padding: 5px; 
+    }
+
+    #submit {
+        padding: 6px 10px; 
+        font-size: 18px;
+    }
+
+    .playerScores {
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .score h3, .score p {
+        font-size: 24px;
+    }
+
+    #theGame {
+        width: 70vh;
+        height: 60vh;
+    }
+
+    .cellContainer {
+        gap: 5px;
+    }
+
+    .cell {
+        width: var(--cell-size);
+        height: var(--cell-size);
+        font-size: 50px;
+    }
+
+    #endMessage {
+        font-size: 20px;
+        margin: 10px 0;
+    }
+
+    .buttons {
+        gap: 20px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .newGame, .reset {
+        width: 150px;
+        font-size: 20px;
+        padding: 10px;
+    }
+}
