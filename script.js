@@ -28,10 +28,11 @@ else{
 //START THE GAME
 //--------------
 
+//--- Loads options ----
 function startGame() {
   let askP1 = playerOption[currentIndex];
   console.log(askP1.question);
-  string = askP1.question
+  string = askP1.question;
   print(string);
 
   let optionsContainer = document.getElementById("options");
@@ -66,10 +67,10 @@ function print(string){
     setTimeout(main, timePerChar);
     }
   };
-  main();
+  main(string);
 };
 
-//---- Player X or O choice ----
+//---- Player submits choice ----
 
 function submit(){
   let choice = document.querySelector('input[name="option"]:checked');
@@ -90,108 +91,112 @@ function submit(){
   }
   currentPlayer.push(player1);
   currentPlayer.push(player2);
-  document.getElementById('playerChoice').innerHTML = '';                           //removes choice so player cannot change during game
+  document.getElementById('playerChoice').innerHTML = '';                             //removes choice so player cannot change during game
   document.getElementsByClassName('turn')[0].classList = 'turn true'
   buildBoard();
 };
 
-//Building the board
-function buildBoard() {
-  let gameContainer = document.getElementById('theGame');
+//---- Building the board ----
+
+function buildBoard(){
+  let gameContainer = document.getElementById('theGame')
   let boardContainer = document.createElement('div');
-  boardContainer.classList = 'cellContainer';
+  boardContainer.classList = 'cellContainer'
 
   gameContainer.appendChild(boardContainer);
 
-  for (let i = 0; i < 9; i++) {
+
+  for(let i = 0; i < 9; i++){                                                         //creates cells for the board
       let square = document.createElement('div');
       square.className = 'cell';
       boardContainer.appendChild(square);
-
-      square.addEventListener('click', (event) => {
-          let currentCell = event.target;
-
-          if (!isGameActive || currentCell.innerHTML !== '') return;
-
+     
+      square.addEventListener('click', (event) => {                                   //adds eventListener when cell is created
+          let currentCell = event.target          
+          if(currentCell.innerHTML !== ''){
+              return;
+          }
           turn = (turn === currentPlayer[0]) ? currentPlayer[1] : currentPlayer[0];
 
           let player = document.getElementsByClassName('turn');
-          if (turn === currentPlayer[0]) {
-              player[1].classList = 'turn true';
-              player[0].classList = 'turn';
-          } else {
-              player[1].classList = 'turn'
-              player[0].classList = 'turn true';
+          if(turn === currentPlayer[0]){
+            player[1].classList = 'turn true';
+            player[0].classList = 'turn';
+          }
+          else{
+            player[1].classList = 'turn';
+            player[0].classList = 'turn true';
           }
 
           let item = document.createElement('p');
           item.classList = ('celldata');
           currentCell.appendChild(item);
-          item.innerText = turn;
+          item.innerText = turn;                                                      //sets innerText to X or O when 
 
           board[i] = turn;
-          resultCalc()
-      })
-  }
-}
+          resultCalc();
+
+      });                                                                             //clicked depending on player turn
+  };      
+};
+
+
+//----------------
+//CALCULATE WINNER
+//----------------
+
+
+//---- Variables ----
 
 let score1 = 0
 let score2 = 0 
 let tie = 0
-const winningConditions = [ [0, 1, 2],[3, 4, 5],[6, 7, 8],[0, 3, 6],[1, 4, 7],[2, 5, 8],[0, 4, 8],[2, 4, 6] ]
-
+const winningConditions =                                                             //adjusted for readability
+  [ 
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6] 
+  ]
 let board = ['', '', '', '', '', '', '', '', ''];
-
 let isGameActive = true;
-
-const PLAYERX_WON = 'PLAYERX_WON';
-const PLAYERO_WON = 'PLAYERO_WON';
+const P1 = 'P1';
+const P2 = 'P2';
 const TIE = 'TIE';
 const endmessage = document.getElementById("endMessage");
 
-const isValidAction = (data) => {
-    if (data.innerText === 'X' || data.innerText === 'O'){
-        return false;
-    }   
-    else return true;
-}
-
 const printmessage = (type) => {
   const endmessage = document.getElementById("endMessage");
-  let score1 = 0
-  let score2 = 0
-  let tie = 0
+  const tiescore = document.getElementById("tieScore")
+  const p1score = document.getElementById("P1Score")
+  const p2score = document.getElementById('P2Score')
   switch(type){
-    
-      case 'PLAYERO_WON':
-          endmessage.innerText = 'Player O Won!'
-          score2++;
-          document.getElementById("P2Score").innerHTML = score2
-          isGameActive = false
-          break;
+    case 'P1':
+      endmessage.innerText = 'Player 1 Won!'
+      score1++;
+      p1score.innerHTML = score1
+      break;
 
+    case 'P2':
+      endmessage.innerText = 'Player 2 Won!'
+      score2++;
+      p2score.innerText = score2
+      break;
 
-      case 'PLAYERX_WON':
-          endmessage.innerText = 'Player X Won!'
-          score1++;
-          document.getElementById('P1Score').innerText = score1
-          isGameActive = false
-          break;
-
-      case 'TIE':
-          endmessage.innerText = 'It was a Tie!'
-          tie++;
-          document.getElementById('TieScore').innerText = tie
-          isGameActive = false
-          break;
+    case 'TIE':
+      endmessage.innerText = 'It was a Tie!'
+      tie++;
+      tiescore.innerText = tie;
   }
-  endmessage.classList.remove('hide')
   isGameActive = false
 }
 
-
+// function that lets you grab values froM the different cells, and prints message accordingly: See 8:31 in the video to understand this
 function resultCalc() {
-  
   let roundWon = false;
   for (let i = 0; i < winningConditions.length; i++) {
       const winCondition = winningConditions[i];
@@ -202,37 +207,21 @@ function resultCalc() {
       if (a === '' || b === '' || c === '') {
           continue;
       }
-      if (a && a === b && b === c) {
-        roundWon = true;
-        break;
-    }
-}
+      if (a === b && b === c) {
+          roundWon = true;
+          break;
+
+      }
+  }
 
   if (roundWon) {
-      printmessage(turn === "X" ? PLAYERX_WON : PLAYERO_WON);
+      printmessage(turn == currentPlayer[0] ? P1 : P2);
       isGameActive = false;
       return;
   }
 
   if (!board.includes('')) {
-    printmessage(TIE);
-    isGameActive = false;
+      printmessage(TIE);
+      isGameActive = false;
   }
-}
-
-document.getElementById('newGame').addEventListener('click', resetBoard);
-
-function resetBoard() {
-  const endmessage = document.getElementById("endMessage")
-  endmessage.innerText= ""
-  board = ['', '', '', '', '', '', '', '', ''] 
-  document.querySelectorAll('.cell').forEach(cell => {
-      cell.innerHTML = ''
-      cell.classList.remove('playerX', 'playerO')
-  })
-  isGameActive = true;
-  turn = currentPlayer[0];
-}
-
-
-
+};

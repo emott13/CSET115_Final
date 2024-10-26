@@ -22,10 +22,16 @@
 
     <section id="playerScores">
         <div class="score" id="player_1">
-            <h3 class="turn">Player 1</h3>
+            <h3 class="turn">Player 1:</h3>
+            <p id="P1Score"></p>
+        </div>
+        <div class="score">
+            <h3 class="tie">Ties:</h3>
+            <p id="tieScore"></p>
         </div>
         <div class="score" id="player_2">
-            <h3 class="turn">Player 2</h3>
+            <h3 class="turn">Player 2:</h3>
+            <p id="P2Score"></p>
         </div>
     </section>
 
@@ -36,15 +42,9 @@
     <div id="endMessage"></div>
     
     <section class="buttons">
-        <button id="newGame">Start new game</button>
+        <button class="newGame">Start new game</button>
         <button class="reset" onclick="location.reload()">Reset game</button>        
     </section>
-
-<section class="scores">
-     <p class="point">Player 1: <div id="P1Score"></div></p>
-     <p class="point">Player 2: <div id="P2Score"></div> </p>
-     <p class="point">Ties: <div id="TieScore"></div> </p>
-</section>
 
 </body>
 </html>
