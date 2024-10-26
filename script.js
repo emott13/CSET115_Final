@@ -236,6 +236,19 @@ function resetBoard() {
       cell.innerHTML = ''
       cell.classList.remove('playerX', 'playerO')
   })
+  turnReset();
   isGameActive = true;
-  turn = currentPlayer[0];
 };
+
+function turnReset(){
+  turn = (turn === currentPlayer[0]) ? currentPlayer[1] : currentPlayer[0];
+  let player = document.getElementsByClassName('turn');
+  if(turn === currentPlayer[0]){
+    player[1].classList = 'turn true';
+    player[0].classList = 'turn';
+  } 
+  else{
+    player[1].classList = 'turn'
+    player[0].classList = 'turn true';
+  }
+}
