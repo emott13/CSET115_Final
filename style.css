@@ -189,6 +189,7 @@ div.score > p{
     /* ---- choices ---- */
 
     #playerChoice{
+        width: 600px;
         height: 160px;
         margin-top: 10px;
         color: #dbd9d9;
@@ -196,7 +197,7 @@ div.score > p{
     }
     
     #choice{
-        width: 70%;
+        width: 80%;
     }
     
     #options{
@@ -274,10 +275,7 @@ div.score > p{
     /* ---- choices ---- */
 
     #playerChoice{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 70vh;
+        width: 600px;
         height: 140px;
         margin: 40px 0 30px;
         color: #dbd9d9;
@@ -285,11 +283,15 @@ div.score > p{
     }
 
     #choice{
-        width: 95%;
+        width: 80%;
         letter-spacing: 1px;
     }
 
     /* ---- scores ---- */
+
+    #playerScores{
+        gap: 300px;
+    }
 
     .score{
         margin: 0 20px;
