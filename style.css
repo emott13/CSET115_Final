@@ -110,6 +110,7 @@ div.score > p{
 
 #theGame{
     height: 260px;
+    margin-bottom: 35px;
 }
 
 /* ---- cell styles ---- */
