@@ -20,7 +20,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url(https://cdn.pixabay.com/photo/2016/01/22/05/45/texture-1155341_640.jpg);
+    background-image: url(https://i.pinimg.com/originals/30/97/30/309730902b26405481f91075bbff4c82.jpg);
     background-size: cover;
     font-family: var(--font-family);
 }
@@ -185,6 +185,11 @@ div.score > p{
 /* ----------------------- */
 
 @media (min-width: 600px) and (max-width: 900px) {                      /*--- Tablet view ---*/
+
+    body{
+        background-image: url(https://cdn.pixabay.com/photo/2016/01/22/05/45/texture-1155341_640.jpg);
+        background-size: cover;
+    }
 
     /* ---- choices ---- */
 
