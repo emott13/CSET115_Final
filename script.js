@@ -31,7 +31,6 @@ else{
 //--- Loads options ----
 function startGame() {
   let askP1 = playerOption[currentIndex];
-  console.log(askP1.question);
   string = askP1.question;
   print(string);
 
@@ -55,7 +54,7 @@ function startGame() {
 //---- Print player instructions ----
 
 function print(string){
-  let timePerChar = 80;
+  let timePerChar = 60;
   let textContainer = document.getElementById('choice');
   textContainer.textContent = '';
   let i = 0;
@@ -207,34 +206,37 @@ function resultCalc() {
 
       if (a === '' || b === '' || c === '') {
           continue;
-      }
+      };
       if (a && a === b && b === c) {
         roundWon = true;
         break;
-    }
-}
+    };
+};
 
   if (roundWon) {
       printmessage(turn == currentPlayer[0] ? P1 : P2);
       isGameActive = false;
       return;
-  }
+  };
 
   if (!board.includes('')) {
     printmessage(TIE);
     isGameActive = false;
-  }
-}
+  };
+};
 
 document.getElementById('newGame').addEventListener('click', resetBoard);
 
 function resetBoard() {
-  const endmessage = document.getElementById("endMessage")
-  endmessage.innerText= ""
-  board = ['', '', '', '', '', '', '', '', ''] 
+  if(currentPlayer.length === 0){
+    return;
+  }
+  const endmessage = document.getElementById("endMessage");
+  endmessage.innerText= "";
+  board = ['', '', '', '', '', '', '', '', ''];
   document.querySelectorAll('.cell').forEach(cell => {
-      cell.innerHTML = ''
-      cell.classList.remove('playerX', 'playerO')
+      cell.innerHTML = '';
+      cell.classList.remove('playerX', 'playerO');
   })
   turnReset();
   isGameActive = true;
@@ -248,7 +250,7 @@ function turnReset(){
     player[0].classList = 'turn';
   } 
   else{
-    player[1].classList = 'turn'
+    player[1].classList = 'turn';
     player[0].classList = 'turn true';
   }
-}
+};

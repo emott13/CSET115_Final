@@ -1,41 +1,47 @@
+/* ----------------------- */
+/* ---- MOBILE STYLES ---- */
+/* ----------------------- */
+
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-:root{                                          /*defining global variables*/
-    --cell-size: 120px;
+:root{
+    --cell-size: 80px;
     --color: #339b78;
     --color-set: #1c5844;
     --l: 10px;
-    --font-family: 'Cabin Sketch'
+    --font-family: 'Cabin Sketch';
 }
 
 body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url(https://images.unsplash.com/photo-1711062717294-8902df8cebe3?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2hhbGtib2FyZCUyMHRleHR1cmV8ZW58MHx8MHx8fDA%3D);
+    background-image: url(https://cdn.pixabay.com/photo/2016/01/22/05/45/texture-1155341_640.jpg);
     background-size: cover;
     font-family: var(--font-family);
 }
 
+/* ---- choices ---- */
+
 #playerChoice{
-    width: 440px;
-    height: 120px;
-    margin-top: 30px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-content: center;
+    width: 100%;
+    height: 140px;
+    margin-top: 5px;
     color: #dbd9d9;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 #choice{
     width: 100%;
     margin: auto;
-    padding: 10px;
+    padding: 15px;
     text-align: left;
 }
 
@@ -44,13 +50,12 @@ body{
     flex-direction: row;
     justify-content: space-around;
     width: 100%;
+    margin: auto;
     padding: 10px;
     text-align: center;
 }
 
 #submit{
-    /* justify-self: center; */
-    /* margin-top: 20px; */
     padding: 4px;
     background-color: transparent;
     border: solid 1px#dbd9d9;
@@ -59,63 +64,72 @@ body{
     font-size: 20px;
 }
 
+/* ---- scores ---- */
+
 #playerScores{
     display: flex;
-    justify-content: space-evenly;
-    gap: 45vh;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 2em;
+    color: #dbd9d9;
+    font-weight: normal;
+    margin: auto;
 }
 
 .score{
+    margin: 5px 0;
     text-align: center;
 }
 
 div.score > h3{
-    height: 20px;
-    min-width: 100px;
-    margin: 20px;
     color: #dbd9d9;
-    font-size: 30px;
     font-weight: normal;
 }
 
 div.score > p{
     height: 25px;
     color: #dbd9d9;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .turn,
 .tie{
-    text-decoration: 6px underline dashed #1c5844;
+    text-decoration: 6px underline dotted #1c5844;
 }
 .true{
-    text-decoration: 6px underline dashed #339b78;
+    text-decoration: 6px underline dotted #339b78;
+}
+
+/* ---- winning message ---- */
+
+#endMessage{
+    height: 20px;
+    color: #dbd9d9;
+    font-size: 15px;
 }
 
 #theGame{
-    width: 60vh;
-    height: 50vh;
+    height: 260px;
 }
 
+/* ---- cell styles ---- */
+
 .cellContainer{
+    width: 90%;
+    height: auto;
     display: grid;
-    grid-template-columns: repeat(3, auto);     /*defines columns for board*/
-    justify-content: center;
-    align-content: center;
-    justify-items: center;
-    align-items: center;
-    margin-top: 50px;
+    grid-template-columns: repeat(3, 1fr);                      /*fr = fraction of available space in container*/
+    margin: 10px 0;
+    font-size: 45px;
 }
+
 .cell{
-    width: var(--cell-size);                    /*sets sizes to variable*/
+    width: var(--cell-size);
     height: var(--cell-size);
+    align-content: center;
     color: #a5a5a5;
-    border: 1px solid #696767;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
+    border: 1px solid #a5a5a5;
+    text-align: center;
 }
 
 .cell:nth-child(1),
@@ -142,34 +156,194 @@ div.score > p{
     border-right: none;
 }
 
-.cell > p{
-    font-family: var(--font-family);
-    font-size: 60px;
-}
-
-#endMessage{
-    height: 30px;
-    margin: 10px;
-    color: #a5a5a5;
-    font-size: 24px;
-}
+/* ---- button styles ---- */
 
 .buttons{
     display: flex;
-    justify-content: space-between;
-    gap: 30px;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 10px;
+
 }
 
-#newGame,
-.reset{
-    width: 200px;
-    height: 50px;
-    margin-bottom: 30px;
+#newGame, .reset{
+    width: 130px;
+    height: 30px;
+    margin-bottom: 10px;
+    font-size: 15px;
     color: #a5a5a5;
     background-color: #339b78;
     border: #339b78;
     border-radius: 15px;
-    font-size: 24px;
     text-transform: uppercase;
     font-family: var(--font-family);
+}
+
+
+/* ----------------------- */
+/* ---- TABLET STYLES ---- */
+/* ----------------------- */
+
+@media (min-width: 600px) and (max-width: 900px) {                      /*--- Tablet view ---*/
+
+    /* ---- choices ---- */
+
+    #playerChoice{
+        height: 160px;
+        margin-top: 10px;
+        color: #dbd9d9;
+        font-size: 30px;
+    }
+    
+    #choice{
+        width: 70%;
+    }
+    
+    #options{
+        justify-content: space-evenly;
+    }
+
+    /* ---- scores ---- */
+
+    #playerScores{
+        font-size: 20px;
+    }
+
+    .score{
+        margin: 0 15px;
+    }
+
+    .turn,
+    .tie{
+        text-decoration: 6px underline dashed #1c5844;
+    }
+    .true{
+        text-decoration: 6px underline dashed #339b78;
+    }
+
+    /* ---- winning message ---- */
+
+    #endMessage{
+        height: 25px;
+        color: #dbd9d9;
+        font-size: 20px;
+    }
+    
+    #theGame{
+        height: 290px;
+    }
+
+    /* ---- cell styles ---- */
+
+    .cellContainer{
+        width: 80%;
+    }
+
+    .cell{
+        width: 90px;
+        height: 90px;
+    }
+
+    /* ---- buttons ---- */
+
+    .buttons{
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    #newGame,
+    .reset{
+        width: 180px;
+        height: 45px;
+        font-size: 20px;
+    }
+}
+
+/* ------------------------ */
+/* ---- DESKTOP STYLES ---- */
+/* ------------------------ */
+
+@media(min-width: 901px){                                               /*--- Desktop view ---*/
+
+    body{
+        background-image: url(https://images.unsplash.com/photo-1711062717294-8902df8cebe3?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2hhbGtib2FyZCUyMHRleHR1cmV8ZW58MHx8MHx8fDA%3D);
+        background-size: cover;
+
+    }
+
+    /* ---- choices ---- */
+
+    #playerChoice{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 70vh;
+        height: 140px;
+        margin: 40px 0 30px;
+        color: #dbd9d9;
+        font-size: 30px;
+    }
+
+    #choice{
+        width: 95%;
+        letter-spacing: 1px;
+    }
+
+    /* ---- scores ---- */
+
+    .score{
+        margin: 0 20px;
+    }
+
+    div.score > h3{
+        font-size: 30px;
+    }
+
+    div.score > p{
+        font-size: 25px;
+    }
+
+    .turn,
+    .tie{
+        text-decoration: 6px underline dashed #1c5844;
+    }
+    .true{
+        text-decoration: 6px underline dashed #339b78;
+    }
+
+    /* ---- winning message ---- */
+
+    #endMessage{
+        font-size: 25px;
+    }
+
+    #theGame{
+        height: 320px;
+        margin: 10px 0 30px;
+    }
+
+    /* ---- cell styles ---- */
+
+    .cellContainer{
+        max-width: 60vh;
+    }
+
+    .cell{
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+    }
+
+    /* ---- buttons ---- */
+
+    .buttons{
+        flex-direction: row;
+        gap: 30px;
+    }
+
+    #newGame, .reset{
+        width: 300px;
+        height: 50px;
+        font-size: 30px;
+    }
 }
